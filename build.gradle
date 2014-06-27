@@ -1,16 +1,29 @@
 buildscript {
     repositories {
-        maven { url 'http://jcenter.bintray.com' }
+        [
+            'http://dl.bintray.com/andresaraujo/gradle-plugins',
+            'http://jcenter.bintray.com'
+        ].each { repo ->
+            maven { url repo }
+        }
+        /*maven {
+            url 'http://jcenter.bintray.com'
+        }
+        maven {
+            url 'http://dl.bintray.com/andresaraujo/gradle-plugins'
+        }*/
     }
 
     dependencies {
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:0.3'
+        classpath 'io.github.andresaraujo.changelog:git-changelog:0.1.0'
     }
 }
 
 apply plugin: 'groovy'
 apply plugin: 'maven-publish'
 apply plugin: 'bintray'
+apply plugin: 'changelog'
 
 group = 'io.github.andresaraujo.changelog'
 version = '0.1.0'
@@ -97,6 +110,15 @@ bintray {
     }
 
     //dryRun = true
+}
+
+changelog {
+    file "Changelog.md"
+    versionNum "v0.1.1"
+    versionText ""
+    repoUrl "https://github.com/andresaraujo/gradle-changelog-plugin"
+    //from "0.1.0"
+    //to "HEAD"
 }
 
 task wrapper(type: Wrapper) {
