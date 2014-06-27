@@ -6,12 +6,6 @@ buildscript {
         ].each { repo ->
             maven { url repo }
         }
-        /*maven {
-            url 'http://jcenter.bintray.com'
-        }
-        maven {
-            url 'http://dl.bintray.com/andresaraujo/gradle-plugins'
-        }*/
     }
 
     dependencies {
@@ -26,7 +20,7 @@ apply plugin: 'bintray'
 apply plugin: 'changelog'
 
 group = 'io.github.andresaraujo.changelog'
-version = '0.1.0'
+version = '0.1.1'
 
 repositories {
     mavenCentral()
@@ -113,7 +107,7 @@ bintray {
 }
 
 changelog {
-    file "Changelog.md"
+    file "CHANGELOG.md"
     versionNum "v0.1.1"
     versionText ""
     repoUrl "https://github.com/andresaraujo/gradle-changelog-plugin"
