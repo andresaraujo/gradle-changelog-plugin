@@ -13,7 +13,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'bintray'
 
 group = 'io.github.andresaraujo.changelog'
-version = '0.1.0-SNAPSHOT'
+version = '0.1.0'
 
 repositories {
     mavenCentral()
