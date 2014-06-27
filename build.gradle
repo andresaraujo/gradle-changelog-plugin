@@ -1,0 +1,104 @@
+buildscript {
+    repositories {
+        maven { url 'http://jcenter.bintray.com' }
+    }
+
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:0.3'
+    }
+}
+
+apply plugin: 'groovy'
+apply plugin: 'maven-publish'
+apply plugin: 'bintray'
+
+group = 'io.github.andresaraujo.changelog'
+version = '0.1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+    testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Changelog plugin',
+                   'Implementation-Version': version,
+                   'Built-By': System.getProperty('user.name'),
+                   'Built-Date': new Date(),
+                   'Built-JDK': System.getProperty('java.version'),
+                   'Built-Gradle': gradle.gradleVersion
+    }
+}
+
+task sourcesJar(type: Jar) {
+    classifier 'sources'
+    from sourceSets.main.allSource
+}
+
+task groovydocJar(type: Jar, dependsOn: groovydoc) {
+    classifier 'groovydoc'
+    from groovydoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives groovydocJar
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            artifact groovydocJar
+
+            pom.withXml {
+                def root = asNode()
+                root.appendNode('name', 'Gradle Changelog plugin')
+                root.appendNode('description', 'Gradle plugin for generating changelog from commit logs.')
+                root.appendNode('inceptionYear', '2014')
+
+                def license = root.appendNode('licenses').appendNode('license')
+                license.appendNode('name', 'The Apache Software License, Version 2.0')
+                license.appendNode('url', 'http://www.apache.org/licenses/LICENSE-2.0.txt')
+                license.appendNode('distribution', 'repo')
+
+                def developers = root.appendNode('developers')
+                def andresaraujo = developers.appendNode('developer')
+                andresaraujo.appendNode('id', 'andresaraujo')
+                andresaraujo.appendNode('name', 'Andres Araujo')
+                andresaraujo.appendNode('email', 'a.araujo.azua@gmail.com')
+            }
+        }
+        repositories {
+            maven {
+                url "../repo"
+            }
+
+        }
+    }
+}
+
+bintray {
+    user = project.hasProperty('bintrayUser') ? project.getProperty('bintrayUser') : ""
+    key =  project.hasProperty('bintrayKey') ? project.getProperty('bintrayKey') : ""
+    publications = ['mavenJava']
+
+    pkg {
+        repo = 'gradle-plugins'
+        name = 'gradle-changelog-plugin'
+        licenses = ['Apache-2.0']
+    }
+
+    //dryRun = true
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.12'
+}
