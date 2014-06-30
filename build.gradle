@@ -10,7 +10,7 @@ buildscript {
 
     dependencies {
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:0.3'
-        classpath 'io.github.andresaraujo.changelog:git-changelog:0.1.0'
+        classpath 'io.github.andresaraujo.changelog:git-changelog:0.1.+'
     }
 }
 
@@ -114,9 +114,10 @@ bintray {
 
 changelog {
     file "CHANGELOG.md"
-    versionNum "v0.1.1"
+    versionNum "v$project.version"
     versionText ""
     repoUrl "https://github.com/andresaraujo/gradle-changelog-plugin"
+    grep "^fix|^feat|^fix|^perf|^refactor|BREAKING"
     //from "0.1.0"
     //to "HEAD"
 }

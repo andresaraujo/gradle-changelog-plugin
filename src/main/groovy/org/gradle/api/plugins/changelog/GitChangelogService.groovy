@@ -7,6 +7,12 @@ class GitChangelogService {
     def HEADER_TPL          = '<a name="%s">%s</a>\n# %s %s (%s)\n\n'
     def EMPTY_COMPONENT     = '$$'
 
+    def project
+
+    GitChangelogService(project){
+        this.project = project
+    }
+
     static def LinkedHashMap parseRawCommit(String raw){
         if(raw==null || raw.empty) {
             return null
