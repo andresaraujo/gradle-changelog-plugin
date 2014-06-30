@@ -12,6 +12,7 @@
 
 - **GitChangelogTask:** separate logic in a service and add unit tests
 <a name="v0.1.1"></a>
+
 # v0.1.1  (2014/06/27)
 
 
