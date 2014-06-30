@@ -117,7 +117,8 @@ changelog {
     versionNum "v$project.version"
     versionText ""
     repoUrl "https://github.com/andresaraujo/gradle-changelog-plugin"
-    grep "^fix|^feat|^fix|^perf|^refactor|BREAKING"
+    match "^fix|^feat|^fix|^perf|^refactor|BREAKING"
+
     //from "0.1.0"
     //to "HEAD"
 }

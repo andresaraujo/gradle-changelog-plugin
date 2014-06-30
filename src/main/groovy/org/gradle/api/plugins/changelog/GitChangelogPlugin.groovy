@@ -16,7 +16,7 @@ class ChangelogPluginExtension {
     String appName
     String file
     String versionNum
-    String grep
+    String match
     String repoUrl
     String versionText
     String from

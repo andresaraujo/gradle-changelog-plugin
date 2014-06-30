@@ -16,11 +16,10 @@ class GitChangelogTask extends DefaultTask {
         opts.version        = project.changelog.versionNum ? project.changelog.versionNum : ""
         opts.versionText    = project.changelog.versionText ? "\"${project.changelog.versionText}\"" : ""
         opts.appName        = project.changelog.appName ? project.changelog.appName : ""
-        opts.grep           = project.changelog.grep ? project.changelog.grep : "^fix|^feat|^fix|^perf|BREAKING"
+        opts.grep           = project.changelog.match ? project.changelog.match : "^fix|^feat|^fix|^perf|BREAKING"
         opts.repoUrl        = project.changelog.repoUrl ? project.changelog.repoUrl : ""
         opts.from           = project.changelog.from ? project.changelog.from : service.getPreviousTag()
         opts.to             = project.changelog.to ? project.changelog.to : "HEAD"
-
         commits = opts.from ? service.readGitLog(opts.grep, opts.from, opts.to) : service.readGitLog(opts.grep)
 
         println "Parsed ${commits.size()} commits"
