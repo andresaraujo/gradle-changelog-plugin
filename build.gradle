@@ -10,7 +10,7 @@ buildscript {
 
     dependencies {
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:0.3'
-        classpath 'io.github.andresaraujo.changelog:git-changelog:0.1.+'
+        classpath 'io.github.andresaraujo.changelog:git-changelog:0.1.2'
     }
 }
 
